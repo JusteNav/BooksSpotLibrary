@@ -1,4 +1,6 @@
-﻿namespace BooksSpotLibrary.Enums
+﻿using System.Runtime.CompilerServices;
+
+namespace BooksSpotLibrary.Constants
 {
     public enum BookStatus
     {

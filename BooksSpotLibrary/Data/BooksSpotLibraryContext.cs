@@ -17,11 +17,5 @@ namespace BooksSpotLibrary.Data
 
         public DbSet<Book> Book { get; set; } = default!;
 
-        protected override void OnModelCreating(
-            ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Book>()
-                .HasData(BookHelper.GetBooksForSeeding(40));
-        }
     }
 }

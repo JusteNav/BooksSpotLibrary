@@ -1,4 +1,5 @@
 ﻿using BooksSpotLibrary.Data;
+using BooksSpotLibrary.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,14 @@ builder.Services.AddDbContext<BooksSpotLibraryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BooksSpotLibraryContext") ?? throw new InvalidOperationException("Connection string 'BooksSpotLibraryContext' not found.")));
 
 var app = builder.Build();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

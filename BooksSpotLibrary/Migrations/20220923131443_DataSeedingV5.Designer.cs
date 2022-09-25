@@ -4,6 +4,7 @@ using BooksSpotLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BooksSpotLibrary.Migrations
 {
     [DbContext(typeof(BooksSpotLibraryContext))]
-    partial class BooksSpotLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20220923131443_DataSeedingV5")]
+    partial class DataSeedingV5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +32,7 @@ namespace BooksSpotLibrary.Migrations
 
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Borrower")
                         .HasColumnType("nvarchar(max)");
@@ -60,8 +61,7 @@ namespace BooksSpotLibrary.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

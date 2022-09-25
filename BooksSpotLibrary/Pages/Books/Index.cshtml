@@ -1,21 +1,68 @@
 ﻿@page
+@using BooksSpotLibrary.Constants
 @model BooksSpotLibrary.Pages.Books.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
+@*  <div class="sidenav">
+      <input type="checkbox" asp-for="IsFree"> Free
+      <input type="checkbox" asp-for="IsBorrowed"> Borrowed
+      <input type="checkbox" asp-for="IsReserved"> Reserved
+      <input type="checkbox" asp-for="IsNonFiction"> Non-Fiction
+      <input type="checkbox" asp-for="IsForChildren"> For Children
+      <input type="checkbox" asp-for="IsForTeens"> For Teens
+      <input type="checkbox" asp-for="IsFantasy"> Fantasy
+      <input type="checkbox" asp-for="IsHorror"> Horror
+      <input type="checkbox" asp-for="IsDrama"> Drama
+      <input type="checkbox" asp-for="IsRomance"> Romance
+      <input type="checkbox" asp-for="IsBiography"> Biography
+      <input type="checkbox" asp-for="IsCrime"> Crime
+      <input type="checkbox" asp-for="IsPoetry"> Poetry
+  </div>*@
+
+
+
 <h1>Index</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+
+
+<form>
+    <p>
+        @foreach (String status in UIConstants.Status)
+            {
+            <label>
+                    <input type="checkbox" name="BookStatus" value="@status" checked="@Model.Statuses.Contains(status)"/>
+                    @status
+            </label>
+            }
+        <br>
+
+        @foreach (String category in BookCategory.Categories)
+        {
+                <label>
+                            <input type="checkbox" name="Category" value="@category" checked="@Model.Categories.Contains(category)"/>
+                    @category
+                </label>
+        }
+        <br>
+
+        <select asp-for="Selection" asp-items="Model.Selections">
+        <option value="All"> All</option>
+        </select>
+        Your Search Query: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].DateAdded)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Book[0].Title)
             </th>
@@ -46,9 +93,6 @@
     <tbody>
 @foreach (var item in Model.Book) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
