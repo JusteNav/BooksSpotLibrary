@@ -11,15 +11,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using BooksSpotLibrary.Constants;
 using BooksSpotLibrary.Logic;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BooksSpotLibrary.Pages.Books
 {
-    public class IndexModel : PageModel
+
+    public class IndexModel : DI_BasePageModel
     {
-        private readonly BooksSpotLibraryContext _context;
-        public IndexModel(BooksSpotLibraryContext context)
+        public IndexModel(
+            BooksSpotLibraryContext libraryContext,
+            ApplicationDbContext usersContext,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(libraryContext, usersContext, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IList<Book> Book { get;set; } = default!;
@@ -38,8 +44,13 @@ namespace BooksSpotLibrary.Pages.Books
 
         public async Task OnGetAsync()
         {
-            var books = from m in _context.Book
+            var books = from m in BooksContext.Book
                         select m;
+
+            //var isAuthorized = User.IsInRole(RoleNames.UserRole);
+
+            var currentUserName = UserManager.GetUserName(User);
+
 
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -90,27 +101,33 @@ namespace BooksSpotLibrary.Pages.Books
                     }
                 }
             }
-            Statuses = Request.Query["BookStatus"];
-            if (Statuses == null || Statuses.Count() == 0)
-            {
-
-            }
-
-            else
-            {
-                books = books.Where(x => Statuses.Contains(x.Status));
-            }
 
             Categories = Request.Query["Category"];
-            if (Categories == null || Categories.Count() == 0)
-            {
 
-            }
-
-            else
+            if (Categories != null && Categories.Count() != 0)
             {
                 books = books.Where(x => Categories.Contains(x.Category));
             }
+
+            Statuses = Request.Query["BookStatus"];
+            string[] Statuses3;
+
+            if (Statuses != null && Statuses.Count() != 0 && Statuses.Contains(UIConstants.Status[3]))
+            {
+                books = books.Where(x => x.Borrower == currentUserName);
+                IEnumerable<string> Statuses2 = Statuses.Where(x => x != UIConstants.Status[3]);
+                Statuses3 = Statuses2.ToArray();
+            }
+            else
+            {
+                Statuses3 = Statuses;
+            }
+
+            if (Statuses3 != null && Statuses3.Count() != 0)
+            {
+                books = books.Where(x => Statuses3.Contains(x.Status));
+            }
+
             Book = await books.ToListAsync();
         }
     }

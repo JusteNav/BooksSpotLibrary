@@ -6,17 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BooksSpotLibrary.Data;
+using BooksSpotLibrary.Constants;
 using BooksSpotLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BooksSpotLibrary.Pages.Books
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : DI_BasePageModel
     {
-        private readonly BooksSpotLibrary.Data.BooksSpotLibraryContext _context;
 
-        public DeleteModel(BooksSpotLibrary.Data.BooksSpotLibraryContext context)
+        public DeleteModel(
+            BooksSpotLibraryContext libraryContext,
+            ApplicationDbContext usersContext,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(libraryContext, usersContext, authorizationService, userManager)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -24,12 +30,12 @@ namespace BooksSpotLibrary.Pages.Books
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            if (id == null || _context.Book == null)
+            if (id == null || BooksContext.Book == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id);
+            var book = await BooksContext.Book.FirstOrDefaultAsync(m => m.Id == id);
 
             if (book == null)
             {
@@ -39,22 +45,40 @@ namespace BooksSpotLibrary.Pages.Books
             {
                 Book = book;
             }
+
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                 User, Book,
+                                                 OperationNames.Delete);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(Guid? id)
         {
-            if (id == null || _context.Book == null)
+            if (id == null || BooksContext.Book == null)
             {
                 return NotFound();
             }
-            var book = await _context.Book.FindAsync(id);
+
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                     User, Book,
+                                     OperationNames.Delete);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
+            var book = await BooksContext.Book.FindAsync(id);
 
             if (book != null)
             {
                 Book = book;
-                _context.Book.Remove(Book);
-                await _context.SaveChangesAsync();
+                BooksContext.Book.Remove(Book);
+                await BooksContext.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");

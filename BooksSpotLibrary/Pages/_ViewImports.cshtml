@@ -3,3 +3,7 @@
 @using BooksSpotLibrary.Data
 @namespace BooksSpotLibrary.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Areas.Identity.Authorization
+@using Microsoft.AspNetCore.Authorization
+@using BooksSpotLibrary.Models
+@inject IAuthorizationService AuthorizationService

@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BooksSpotLibrary.Data;
 using BooksSpotLibrary.Models;
+using BooksSpotLibrary.Constants;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BooksSpotLibrary.Pages.Books
 {
-    public class CreateModel : PageModel
+    public class CreateModel : DI_BasePageModel
     {
-        private readonly BooksSpotLibrary.Data.BooksSpotLibraryContext _context;
-
-        public CreateModel(BooksSpotLibrary.Data.BooksSpotLibraryContext context)
+        public CreateModel(
+            BooksSpotLibraryContext libraryContext,
+            ApplicationDbContext usersContext,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager)
+            : base(libraryContext, usersContext, authorizationService, userManager)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()
@@ -36,8 +41,16 @@ namespace BooksSpotLibrary.Pages.Books
                 return Page();
             }
 
-            _context.Book.Add(Book);
-            await _context.SaveChangesAsync();
+            var isAuthorized = await AuthorizationService.AuthorizeAsync(
+                                                          User, Book,
+                                                          OperationNames.Create);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
+            BooksContext.Book.Add(Book);
+            await BooksContext.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

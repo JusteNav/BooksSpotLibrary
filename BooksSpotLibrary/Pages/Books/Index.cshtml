@@ -6,57 +6,40 @@
     ViewData["Title"] = "Index";
 }
 
-@*  <div class="sidenav">
-      <input type="checkbox" asp-for="IsFree"> Free
-      <input type="checkbox" asp-for="IsBorrowed"> Borrowed
-      <input type="checkbox" asp-for="IsReserved"> Reserved
-      <input type="checkbox" asp-for="IsNonFiction"> Non-Fiction
-      <input type="checkbox" asp-for="IsForChildren"> For Children
-      <input type="checkbox" asp-for="IsForTeens"> For Teens
-      <input type="checkbox" asp-for="IsFantasy"> Fantasy
-      <input type="checkbox" asp-for="IsHorror"> Horror
-      <input type="checkbox" asp-for="IsDrama"> Drama
-      <input type="checkbox" asp-for="IsRomance"> Romance
-      <input type="checkbox" asp-for="IsBiography"> Biography
-      <input type="checkbox" asp-for="IsCrime"> Crime
-      <input type="checkbox" asp-for="IsPoetry"> Poetry
-  </div>*@
-
-
-
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    @if ((await AuthorizationService.AuthorizeAsync(
+                  User, Model.Book.FirstOrDefault(),
+                   OperationNames.Create)).Succeeded)
+    {
+                            <a asp-page="Create">Create New</a>
+    }
 </p>
-
-
 
 <form>
     <p>
         @foreach (String status in UIConstants.Status)
-            {
-            <label>
-                    <input type="checkbox" name="BookStatus" value="@status" checked="@Model.Statuses.Contains(status)"/>
-                    @status
-            </label>
-            }
+        {
+                <input type="checkbox" name="BookStatus" value="@status" checked="@Model.Statuses.Contains(status)"/>
+                @status
+        }
         <br>
 
         @foreach (String category in BookCategory.Categories)
         {
-                <label>
-                            <input type="checkbox" name="Category" value="@category" checked="@Model.Categories.Contains(category)"/>
-                    @category
-                </label>
+                <input type="checkbox" name="Category" value="@category" checked="@Model.Categories.Contains(category)"/>
+                @category
         }
         <br>
+    </p>
 
+    <p>
         <select asp-for="Selection" asp-items="Model.Selections">
         <option value="All"> All</option>
         </select>
         Your Search Query: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Filter" />
+        <input type="submit" value="Search/Filter" />
     </p>
 </form>
 
@@ -84,9 +67,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Book[0].Status)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Borrower)
-            </th>
+            @if (User.IsInRole(RoleNames.LibrarianRole))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Book[0].Borrower)
+                </th>
+            }
+
+
             <th></th>
         </tr>
     </thead>
@@ -114,14 +102,32 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Borrower)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                @if (User.IsInRole(RoleNames.LibrarianRole))
+                {
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Borrower)
+                        </td>
+                }
+
+                <td>
+                    @if ((await AuthorizationService.AuthorizeAsync(
+                    User, item,
+                    OperationNames.Update)).Succeeded)
+                    {
+                                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+                        <text> | </text>
+                    }
+
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+
+                    @if ((await AuthorizationService.AuthorizeAsync(
+                    User, item,
+                   OperationNames.Delete)).Succeeded)
+                    {
+                        <text> | </text>
+                                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                 </td>
         </tr>
 }
     </tbody>
