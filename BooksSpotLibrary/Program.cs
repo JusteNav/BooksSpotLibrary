@@ -28,6 +28,14 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.AllowedUserNameCharacters =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = true;
+
+});
+
 //builder.Services.Configure<IdentityOptions>(options =>
 //{
 //    // Password settings.

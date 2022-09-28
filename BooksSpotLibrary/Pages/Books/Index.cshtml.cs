@@ -9,26 +9,30 @@ using BooksSpotLibrary.Data;
 using BooksSpotLibrary.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BooksSpotLibrary.Constants;
-using BooksSpotLibrary.Logic;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using BooksSpotLibrary.Areas.UISupport;
 
 namespace BooksSpotLibrary.Pages.Books
 {
 
     public class IndexModel : DI_BasePageModel
     {
+        private readonly IConfiguration Configuration;
         public IndexModel(
             BooksSpotLibraryContext libraryContext,
             ApplicationDbContext usersContext,
             IAuthorizationService authorizationService,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IConfiguration configuration)
             : base(libraryContext, usersContext, authorizationService, userManager)
         {
+           Configuration = configuration;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public PaginatedList<Book> Book { get;set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
@@ -42,18 +46,18 @@ namespace BooksSpotLibrary.Pages.Books
 
         public string[] Categories { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? pageIndex)
         {
             var books = from m in BooksContext.Book
                         select m;
-
-            //var isAuthorized = User.IsInRole(RoleNames.UserRole);
 
             var currentUserName = UserManager.GetUserName(User);
 
 
             if (!string.IsNullOrEmpty(SearchString))
             {
+                pageIndex = 1;
+
                 if (!string.IsNullOrEmpty(Selection))
                 {
                     switch (Selection)
@@ -128,7 +132,12 @@ namespace BooksSpotLibrary.Pages.Books
                 books = books.Where(x => Statuses3.Contains(x.Status));
             }
 
-            Book = await books.ToListAsync();
+            var pageSize = Configuration.GetValue("PageSize", 40);
+
+            List<Book> tempBookList = new List<Book>();
+            tempBookList = await books.ToListAsync();
+
+            Book = await PaginatedList<Book>.CreateAsync(books, pageIndex ?? 1, pageSize);
         }
     }
 }
