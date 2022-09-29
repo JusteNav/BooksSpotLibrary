@@ -1,12 +1,12 @@
 
 # Books Spot Library
 
-This is my (Justė Navickaitė) submission to Baltic Amadeus #ITChallenge!
+This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
 
 
 - ## Pre-requisites:
 	- #### The project is running SQL Server Express LocalDB. 
-	To instantiate databases, database migrations are needed the first time this project is run:
+		To instantiate databases, database migrations are needed the first time this project is run:
 
 		Add-Migration InitialCreateUsers -Context "ApplicationDbContext"
 		Update-Database -Context "ApplicationDbContext"
