@@ -2,9 +2,18 @@
 ## Books Spot Library
 
 #### This is my submission to **Baltic Amadeus #ITChallenge**!
-
-
 - ### Pre-requisites:
+	- #### Some passwords are needed for the initial build. 
+		Passwords are set from the project's directory using the Secret Manager tool with the following commands: 
+
+			dotnet user-secrets set SeedLibrarianPW1 "123Abc?"
+			dotnet user-secrets set SeedLibrarianPW2 "456Def?"
+			dotnet user-secrets set SeedUserPW1 "789Ghi?"
+			dotnet user-secrets set SeedUserPW2 "123Jkl?"
+		The passwords chosen might be different, but provided passwords guarantee fulfillment of complexity requirements. 
+		
+		Passwords have to be set before migrations.
+		
 	- #### The project is running SQL Server Express LocalDB. 
 		To instantiate databases, database migrations are needed the first time this project is run:
 
@@ -13,16 +22,6 @@
 			Add-Migration InitialCreateBooks -Context "BooksSpotLibraryContext"
 			Update-Database -Context "BooksSpotLibraryContext"
    		They can be launched from within the Visual Studio's Package Manager Console.
-
-	- #### Some passwords are needed for initial data seeding. 
-		Passwords are set from the project's directory using the Secret Manager tool with the following commands: 
-
-			dotnet user-secrets set SeedLibrarianPW1 "123Abc?"
-			dotnet user-secrets set SeedLibrarianPW2 "456Def?"
-			dotnet user-secrets set SeedUserPW1 "789Ghi?"
-			dotnet user-secrets set SeedUserPW2 "123Jkl?"
-		The passwords chosen might be different, but provided passwords guarantee fulfillment of complexity requirements.
-
 - ### Roles
 	The application is configured to have these Roles:
 	
