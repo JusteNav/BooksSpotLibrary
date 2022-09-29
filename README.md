@@ -12,8 +12,7 @@ This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
 		Update-Database -Context "ApplicationDbContext"
 		Add-Migration InitialCreateBooks -Context "BooksSpotLibraryContext"
 		Update-Database -Context "BooksSpotLibraryContext"
-   
-	They can be launched from within the Visual Studio's Package Manager Console.
+   	They can be launched from within the Visual Studio's Package Manager Console.
 
 	- #### Some passwords are needed for initial data seeding. 
 	Passwords are set from the project's directory using the Secret Manager tool with the following commands: 
@@ -22,7 +21,6 @@ This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
 		dotnet user-secrets set SeedLibrarianPW2 "456Def?"
 		dotnet user-secrets set SeedUserPW1 "789Ghi?"
 		dotnet user-secrets set SeedUserPW2 "123Jkl?"
-
 	The passwords chosen might be different, but provided passwords guarantee the fulfillment of complexity requirements.
 
 - ## Roles
