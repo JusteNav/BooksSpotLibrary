@@ -21,7 +21,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\UISupport\Images\" />
+    <Folder Include="Areas\UISupport\" />
+    <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\book-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\books.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

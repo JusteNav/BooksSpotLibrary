@@ -13,7 +13,7 @@
                   User, Model.Book.FirstOrDefault(),
                    OperationNames.Create)).Succeeded)
     {
-                                <a asp-page="Create" class="btn btn-primary" >Create New</a>
+                        <a asp-page="Create" class="btn btn-primary" >Create New</a>
     }
 </p>
 
@@ -21,14 +21,14 @@
     <p>
         @foreach (String status in UIConstants.Status)
         {
-                <input type="checkbox" name="BookStatus" value="@status" checked="@Model.Statuses.Contains(status)"/>
+                        <input class="form-check-input" type="checkbox" name="BookStatus" value="@status" checked="@Model.Statuses.Contains(status)"/>
                 @status
         }
         <br>
 
         @foreach (String category in BookCategory.Categories)
         {
-                <input type="checkbox" name="Category" value="@category" checked="@Model.Categories.Contains(category)"/>
+                        <input class="form-check-input" type="checkbox" name="Category" value="@category" checked="@Model.Categories.Contains(category)"/>
                 @category
         }
         <br>
@@ -38,8 +38,8 @@
         <select asp-for="Selection" asp-items="Model.Selections">
         <option value="All"> All</option>
         </select>
-        Your Search Query: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Search/Filter" />
+        Your Search Query: <input type="text" class="searchbar" asp-for="SearchString" />
+        <input type="submit" class="btn btn-primary" value="Search/Filter" />
     </p>
 </form>
 
@@ -132,19 +132,3 @@
 }
     </tbody>
 </table>
-
-@{
-    var prevDisabled = !Model.Book.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.Book.HasNextPage ? "disabled" : "";
-}
-
-<a asp-page="./Index"
-   asp-route-pageIndex="@(Model.Book.PageIndex - 1)"
-   class="btn btn-primary @prevDisabled">
-    Previous
-</a>
-<a asp-page="./Index"
-   asp-route-pageIndex="@(Model.Book.PageIndex + 1)"
-   class="btn btn-primary @nextDisabled">
-    Next
-</a>

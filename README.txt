@@ -13,7 +13,7 @@ dotnet user-secrets set SeedUserPW2 "123Jkl?"
 
 User accounts: 
 
-Librarian: //all permissions. Can also borrow, reserve and return books.Can cancel others' reservations. Can see who borrowed or reserved a book.
+Librarian: //all permissions. Can also borrow, reserve and return books.Can cancel others' reservations and borrow books reserved by someone else. Can see who borrowed or reserved a book.
 librarian1@test.com
 123Abc?
 
@@ -27,3 +27,7 @@ user1@test.com
 
 user2@test.com
 123Jkl?
+
+Newly created users have User role by default.
+
+Did not add book result pagination because of lack of time - that would have to be implemented in the future. 

@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using BooksSpotLibrary.Constants;
 
 namespace BooksSpotLibrary.Areas.Identity.Pages.Account
 {
@@ -125,7 +126,7 @@ namespace BooksSpotLibrary.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    var defaultRole = _roleManager.FindByNameAsync("User").Result; //new users have User role by default
+                    var defaultRole = _roleManager.FindByNameAsync(RoleNames.UserRole).Result; //newS users have User role by default
                     if (defaultRole != null)
                     {
                         IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultRole.Name);

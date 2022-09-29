@@ -13,26 +13,23 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using BooksSpotLibrary.Areas.UISupport;
+
 
 namespace BooksSpotLibrary.Pages.Books
 {
 
     public class IndexModel : DI_BasePageModel
     {
-        private readonly IConfiguration Configuration;
         public IndexModel(
             BooksSpotLibraryContext libraryContext,
             ApplicationDbContext usersContext,
             IAuthorizationService authorizationService,
-            UserManager<IdentityUser> userManager,
-            IConfiguration configuration)
+            UserManager<IdentityUser> userManager)
             : base(libraryContext, usersContext, authorizationService, userManager)
         {
-           Configuration = configuration;
         }
 
-        public PaginatedList<Book> Book { get;set; } = default!;
+        public List<Book> Book { get;set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
@@ -56,7 +53,6 @@ namespace BooksSpotLibrary.Pages.Books
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                pageIndex = 1;
 
                 if (!string.IsNullOrEmpty(Selection))
                 {
@@ -132,12 +128,7 @@ namespace BooksSpotLibrary.Pages.Books
                 books = books.Where(x => Statuses3.Contains(x.Status));
             }
 
-            var pageSize = Configuration.GetValue("PageSize", 40);
-
-            List<Book> tempBookList = new List<Book>();
-            tempBookList = await books.ToListAsync();
-
-            Book = await PaginatedList<Book>.CreateAsync(books, pageIndex ?? 1, pageSize);
+            Book = await books.ToListAsync();
         }
     }
 }

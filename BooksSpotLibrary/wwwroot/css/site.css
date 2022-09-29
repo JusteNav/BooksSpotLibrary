@@ -1,3 +1,10 @@
+.* {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
 html {
   font-size: 14px;
 }
@@ -7,12 +14,124 @@ html {
     font-size: 16px;
   }
 }
-
+.logo {
+    align-self: center;
+    padding-right: 10px;
+}
 html {
   position: relative;
   min-height: 100%;
 }
 
+.btn {
+    color: #fff;
+    background-color: #A29487;
+    border-color: #513C2C;
+    box-shadow: none;
+
+}
+
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #F3EBE2;
+}
+
+a {
+    color: #1A7A89;
+    text-decoration: underline;
+}
+
+    a:hover {
+        color: #104C56;
+    }
+
+.searchbar:active {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.searchbar:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+.logout:focus {
+    border-color: #6A4E39;
+}
+.logout:active {
+    border-color: #6A4E39;
+}
+.logout:hover {
+    border-color: #6A4E39 !important;
+    background-color: #F3EBE2 !important;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #6A4E39;
+    border-color: #A29487;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.btn-primary:active {
+    color: #fff;
+    background-color: #6A4E39;
+    border-color: #A29487;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.btn-primary:focus {
+    color: #fff;
+    background-color: #6A4E39;
+    border-color: #A29487;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.form-check-input:checked {
+    background-color: #15616D;
+    border-color: #104C56;
+}
+
+checkbox:checked {
+    background-color: #15616D;
+    border-color: #104C56;
+}
+
+select {
+    background-color: #A29487;
+    color: #fff;
+    border-color: #513C2C;
+    border-radius: 0.25rem;
+
+}
+    select::selection {
+        border-color: #A29487;
+    }
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #CBC0B5;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(162, 148, 135, 0.25);
+}
+.form-select:focus {
+    border-color: #CBC0B5;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(162, 148, 135, 0.25);
+}
+.form-check-input:focus {
+    border-color: #CBC0B5;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(162, 148, 135, 0.25);
+}
+
+.bookpic {
+    border-radius: 20%;
+    padding: 20px;
+    width: 300px;
+}
+
+.bookcontainer {
+display: grid;
+place-items:left;
 }

@@ -1,4 +1,5 @@
 ﻿@page
+@using BooksSpotLibrary.Constants
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -6,9 +7,38 @@
 
 <div class="text-center">
         <h1 class="display-4">Welcome</h1>
-    <p> Please
-        <a href = "/Identity/Account/Register"> Register</a>
-        or 
-        <a href = "/Identity/Account/Login"> Log In</a>
-        to use BooksSpot Library services!</p>
+    <div class= "book-container">
+        <a href = "~/Books">
+            <img class = "bookpic" src="~/images/books1.png" alt="library"/>
+        </a>
+        <a href = "~/Books">
+        <img class = "bookpic" src="~/images/books2.png" alt="library"/>
+        </a>
+        <a href = "~/Books">
+        <img class = "bookpic" src="~/images/books3.png" alt="books"/>
+        </a>
+    </div>
+
+
+    <div>
+            @if (!User.IsInRole(RoleNames.LibrarianRole) && !User.IsInRole(RoleNames.UserRole))
+            {
+                <p> Please
+                <a href = "/Identity/Account/Register"> Register</a>
+                or 
+                <a href = "/Identity/Account/Login"> Log In </a>
+                to use BooksSpot Library services!</p>
+            }
+
+            @if (User.IsInRole(RoleNames.LibrarianRole) || User.IsInRole(RoleNames.UserRole))
+            {
+                <p> Please
+                    <a href = "~/Books"> Click here </a>
+                to view available books!</p> 
+            }
+
+    </div>
+
 </div>
+
+
