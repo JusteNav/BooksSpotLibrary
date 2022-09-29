@@ -6,10 +6,10 @@
 	- #### Some passwords are needed for the initial build. 
 		Passwords are set from the project's directory using the Secret Manager tool with the following commands: 
 
-			dotnet user-secrets set SeedLibrarianPW1 "123Abc?"
-			dotnet user-secrets set SeedLibrarianPW2 "456Def?"
-			dotnet user-secrets set SeedUserPW1 "789Ghi?"
-			dotnet user-secrets set SeedUserPW2 "123Jkl?"
+			dotnet user-secrets  --project BooksSpotLibrary set SeedLibrarianPW1 "123Abc?"
+			dotnet user-secrets  --project BooksSpotLibrary set SeedLibrarianPW2 "456Def?"
+			dotnet user-secrets  --project BooksSpotLibrary set SeedUserPW1 "789Ghi?"
+			dotnet user-secrets  --project BooksSpotLibrary set SeedUserPW2 "123Jkl?"
 		The passwords chosen might be different, but provided passwords guarantee fulfillment of complexity requirements. 
 		
 		Passwords have to be set before migrations.
