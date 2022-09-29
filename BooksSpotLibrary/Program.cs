@@ -1,9 +1,11 @@
+using BooksSpotLibrary;
 using BooksSpotLibrary.Areas.Identity.Authorization;
 using BooksSpotLibrary.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

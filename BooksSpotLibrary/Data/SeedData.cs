@@ -83,12 +83,12 @@ namespace BooksSpotLibrary.Data
                 {
                     UserName = UserName,
                 };
-                await userManager.CreateAsync(user, testUserPw);
+               var IR = await userManager.CreateAsync(user, testUserPw);
             }
 
             if (user == null)
             {
-                throw new Exception("The password is probably not strong enough!");
+                throw new Exception($"The {UserName} password is probably not strong enough!");
             }
 
             return user.Id;
@@ -116,7 +116,7 @@ namespace BooksSpotLibrary.Data
 
             if (user == null)
             {
-                throw new Exception("The testUserPw password was probably not strong enough!");
+                throw new Exception("The password was probably not strong enough!");
             }
 
             IR = await userManager.AddToRoleAsync(user, role);
