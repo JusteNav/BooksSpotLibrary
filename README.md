@@ -1,10 +1,10 @@
 
-# Books Spot Library
+## Books Spot Library
 
-### This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
+#### This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
 
 
-- ## Pre-requisites:
+- ### Pre-requisites:
 	- #### The project is running SQL Server Express LocalDB. 
 	To instantiate databases, database migrations are needed the first time this project is run:
 
@@ -23,7 +23,7 @@
 		dotnet user-secrets set SeedUserPW2 "123Jkl?"
 	The passwords chosen might be different, but provided passwords guarantee the fulfillment of complexity requirements.
 
-- ## Roles
+- ### Roles
 	The application is configured to have these Roles:
 	
 	- #### Librarian: 
@@ -51,7 +51,7 @@
 				user2@test.com
 				123Jkl?
 
-- ## Notes:
+- ### Notes:
 
 	- Division of results into pages was not implemented this time and would have to be added in the future. 
 	- Many of built-in authentification services were purposefully disabled to keep the application simple.
