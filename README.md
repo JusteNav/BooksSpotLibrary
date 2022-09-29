@@ -11,9 +11,7 @@
 			dotnet user-secrets  --project BooksSpotLibrary set SeedUserPW1 "789Ghi?"
 			dotnet user-secrets  --project BooksSpotLibrary set SeedUserPW2 "123Jkl?"
 		The passwords chosen might be different, but provided passwords guarantee fulfillment of complexity requirements. 
-		
-		Passwords have to be set before migrations.
-		
+				
 	- #### The project is running SQL Server Express LocalDB. 
 		To instantiate databases, database migrations are needed the first time this project is run:
 
