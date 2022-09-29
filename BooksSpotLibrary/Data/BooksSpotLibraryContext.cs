@@ -16,5 +16,10 @@ namespace BooksSpotLibrary.Data
 
         public DbSet<Book> Book { get; set; } = default!;
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
     }
 }
