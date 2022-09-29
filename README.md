@@ -42,7 +42,7 @@ This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
 				456Def?
 
 	- #### User: 
-		- Limited permissions 
+		- Limited permissions.
 		- Can borrow or reserve free books and cancel their own reservations. 
 		- Can search for books they borrowed or reserved.
 		- Newly created users have User role by default.
