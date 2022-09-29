@@ -1,3 +1,4 @@
+
 ##Books Spot Library
 
 This is my (Justė Navickaitė) submission to Baltic Amadeus #ITChallenge!
@@ -11,7 +12,7 @@ This is my (Justė Navickaitė) submission to Baltic Amadeus #ITChallenge!
    Add-Migration InitialCreateBooks -Context "BooksSpotLibraryContext"
    Update-Database -Context "BooksSpotLibraryContext"`
    
-They can be launched from within the Visual Studio's Package Manager Console.
+	They can be launched from within the Visual Studio's Package Manager Console.
 
 ######Some passwords are needed for initial data seeding. 
 Passwords are set from the project's directory using the Secret Manager tool with the following commands: 
@@ -21,36 +22,36 @@ Passwords are set from the project's directory using the Secret Manager tool wit
   dotnet user-secrets set SeedUserPW1 "789Ghi?"
   dotnet user-secrets set SeedUserPW2 "123Jkl?"`
 
-The passwords chosen might be different, but provided passwords guarantee the fulfillment of complexity requirements.
+	The passwords chosen might be different, but provided passwords guarantee the fulfillment of complexity requirements.
 
 ### Roles 
-The application is configured to have these Roles:
+	The application is configured to have these Roles:
 
 ######Librarian: 
-All permissions. 
-Can borrow, reserve and return books. 
-Can cancel others' reservations and borrow books reserved by someone else. 
-Can see who borrowed or reserved a book. 
-Can create, edit or delete book entries. 
+	All permissions. 
+	Can borrow, reserve and return books. 
+	Can cancel others' reservations and borrow books reserved by someone else. 
+	Can see who borrowed or reserved a book. 
+	Can create, edit or delete book entries. 
 
-librarian1@test.com
-123Abc?
+		librarian1@test.com
+		123Abc?
 
-librarian2@test.com
-456Def?
+		librarian2@test.com
+		456Def?
 
 ######User: 
-Limited permissions 
-Can borrow or reserve free books and cancel their own reservations. 
-Can search for books they borrowed or reserved.
+	Limited permissions 
+	Can borrow or reserve free books and cancel their own reservations. 
+	Can search for books they borrowed or reserved.
 
-user1@test.com
-789Ghi?
+		user1@test.com
+		789Ghi?
 
-user2@test.com
-123Jkl?
+		user2@test.com
+		123Jkl?
 
-Newly created users have User role by default.
+	Newly created users have User role by default.
 
 ### Notes:
 
