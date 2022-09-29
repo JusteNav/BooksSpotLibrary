@@ -1,7 +1,7 @@
 
 # Books Spot Library
 
-This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
+### This is my (Justė Navickaitė) submission to **Baltic Amadeus #ITChallenge**!
 
 
 - ## Pre-requisites:
