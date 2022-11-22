@@ -1,7 +1,8 @@
 
 ## Books Spot Library
 
-#### This is my submission to the **Baltic Amadeus #ITChallenge**!
+A simple library application for storing and searching books.
+
 - ### Pre-requisites:
 	- #### Some passwords are needed for the initial build: 
 		Passwords are set from the project's directory using the Secret Manager tool with the following commands: 
